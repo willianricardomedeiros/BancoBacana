@@ -1,0 +1,54 @@
+<div class="container" style="margin-top:30px">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Contas Corrente</h2>
+            <br/>
+            <p>
+                Conta Corrente: <b>{{ contaCorrente.numConta | number : '3.0'}}</b> 
+                <span style="float: right;">
+                    Aberta:
+                        <ng-container *ngIf="contaCorrente.aberta === 1"><b><span style="color: green">Sim</span></b></ng-container>
+                        <ng-container *ngIf="contaCorrente.aberta === 0"><b><span style="color: red">N&atilde;o</span></b></ng-container>
+                </span>
+            </p>
+            <p>Limite: {{ contaCorrente.limite | currency : 'BRL' }}</p>
+            
+            <p>Saldo: {{ saldo | currency : 'BRL' }}</p>
+	        <hr/>
+            <p>Listagem das movimenta&ccedil;&otilde;es desta conta corrente.</p>
+            <table  class="table table-striped">
+                <thead>
+                   <tr>
+                      <th>Descri&ccedil;&atilde;o</th>
+                      <th>Valor</th>
+                      <th>Tipo</th>
+                   </tr>
+                </thead> 
+                <tbody id="tabelaMovimentacao">
+                    <tr *ngFor="let mov of movimentacoes">
+                        <td>{{ mov.descricao }}</td>
+                        <td>{{ mov.valor | currency : 'BRL' }}</td>
+                        <td>{{ mov.tipo }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div >
+            </div>
+        </div>   
+    </div>
+    <div class="row">
+        <a routerLink="/contaCorrentes" class="btn btn-primary mb-2">Voltar</a>&nbsp;&nbsp;
+        <ng-container *ngIf="contaCorrente.aberta === 1">
+            <form (submit)="encerrar(contaCorrente)" method="get">
+                <input type="hidden" id="numConta" name="numConta" value="{{contaCorrente.numConta}}">
+                <input type="submit" value="Encerrar Conta" class="btn btn-warning">
+            </form>
+        </ng-container>
+        <ng-container *ngIf="contaCorrente.aberta === 0">
+            <form (submit)="reabrir(contaCorrente)" method="get">
+                <input type="hidden" id="numConta" name="numConta" value="{{contaCorrente.numConta}}">
+                <input type="submit" value="Reabrir Conta" class="btn btn-success">
+            </form> 
+        </ng-container>
+    </div>
+</div>

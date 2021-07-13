@@ -1,0 +1,30 @@
+<div class="container" style="margin-top:30px">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Contas Correntes</h2>
+            <br/>
+            <p>Listagem das contas correntes existentes no banco.</p>
+
+            <table class="table table-striped"> 
+                <thead>
+                    <tr>
+                        <th>Num. Conta</th>
+                        <th>Limite</th>
+                        <th>Aberta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cc of contaCorrentes">
+                        <td><a href="javascript:;" (click)="exibir(cc)">{{ cc.numConta | number : '3.0' }}</a></td>
+                        <td>{{ cc.limite | currency : 'BRL' }}</td>
+                        <td>
+                            <ng-container *ngIf="cc.aberta == 1"><span style="color: green">Sim</span></ng-container>
+                            <ng-container *ngIf="cc.aberta == 0"><span style="color: red">N&atilde;o</span></ng-container>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>   
+    </div>
+</div>
